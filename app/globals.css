@@ -843,7 +843,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .site-main { margin: 0; padding-top: 92px; }
   .hero { min-height: calc(100svh - 92px - var(--ticker)); padding-top: 80px; }
-  .hero h1 { font-size: clamp(3.4rem, 18vw, 9rem); -webkit-text-stroke-width: 1px; }
+  .hero h1 {
+    font-size: clamp(3.4rem, 18vw, 9rem);
+    transform: translateX(-1.5%);
+    -webkit-text-stroke-width: 1px;
+  }
   .feature-grid { grid-template-columns: 1fr; }
   .feature-card:nth-child(3) { grid-column: 1; min-height: 420px; }
   .content-row > a { grid-template-columns: 46px minmax(0, 1fr); }

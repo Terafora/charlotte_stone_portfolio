@@ -5,7 +5,9 @@ import './globals.css';
 
 const bodyFont = Space_Grotesk({ variable: '--font-body', subsets: ['latin'] });
 const headingFont = Limelight({ variable: '--font-heading', weight: '400', subsets: ['latin'] });
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+const vercelProductionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ?? (vercelProductionHost ? `https://${vercelProductionHost}` : 'http://localhost:3000');
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const ogImage = `${basePath}/og.png`;
 
