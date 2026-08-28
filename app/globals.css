@@ -645,19 +645,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .detail-layout {
   display: grid;
-  grid-template-columns: minmax(210px, .38fr) minmax(0, 1fr);
-  gap: clamp(45px, 8vw, 125px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(38px, 5vw, 70px);
   max-width: 1180px;
   margin: 0 auto;
   padding: clamp(45px, 6vw, 86px) 0 clamp(75px, 10vw, 145px);
 }
 
-.detail-aside { position: sticky; top: 38px; align-self: start; }
-.detail-aside__shape { width: 112px; height: 112px; margin-bottom: 27px; display: grid; place-items: center; background: var(--detail-accent); border: var(--border); border-radius: 18px; box-shadow: 8px 8px 0 var(--ink); font: 2.8rem/1 var(--display); }
-.detail-aside > p { max-width: 250px; margin: 0 0 27px; line-height: 1.5; }
-.detail-aside .button { font-size: .78rem; }
+.detail-aside { position: static; width: min(100%, 900px); margin: 0 auto; display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 24px; align-items: center; }
+.detail-aside__shape { width: 112px; height: 112px; margin: 0; display: grid; place-items: center; background: var(--detail-accent); border: var(--border); border-radius: 18px; box-shadow: 8px 8px 0 var(--ink); font: 2.8rem/1 var(--display); }
+.detail-aside > p { max-width: 520px; margin: 0; line-height: 1.5; }
+.detail-aside .button { grid-column: 1 / -1; width: fit-content; font-size: .78rem; }
 
-.article-body { max-width: 790px; font-size: clamp(1.03rem, 1.35vw, 1.18rem); line-height: 1.75; }
+.article-body { width: 100%; max-width: 900px; margin: 0 auto; font-size: clamp(1.03rem, 1.35vw, 1.18rem); line-height: 1.75; }
 .article-body > :first-child { margin-top: 0; }
 .article-body h2 { margin: 2.1em 0 .6em; font: clamp(2rem, 3.8vw, 3.8rem)/1 var(--display); text-transform: uppercase; }
 .article-body h3 { margin: 2em 0 .5em; font: clamp(1.45rem, 2.4vw, 2.25rem)/1 var(--display); text-transform: uppercase; }
@@ -670,10 +670,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .article-figure { margin: 2.6em 0; }
 .article-figure img { display: block; width: 100%; height: auto; border: var(--border); border-radius: 16px; box-shadow: 9px 9px 0 var(--ink); }
 .article-figure figcaption { margin-top: 12px; font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
-.article-table { width: 100%; margin: 2em 0 2.8em; overflow-x: auto; border: var(--border); border-radius: 12px; background: var(--white); box-shadow: 7px 7px 0 var(--detail-accent); }
-.article-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: .88rem; line-height: 1.45; }
+.article-table { width: 100%; margin: 2em 0 2.8em; overflow: hidden; border: var(--border); border-radius: 12px; background: var(--white); box-shadow: 7px 7px 0 var(--detail-accent); }
+.article-table table { width: 100%; min-width: 0; table-layout: fixed; border-collapse: collapse; font-size: .88rem; line-height: 1.45; }
 .article-table th,
-.article-table td { padding: 13px 15px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); text-align: left; vertical-align: top; }
+.article-table td { padding: 13px 15px; overflow-wrap: anywhere; word-break: normal; hyphens: auto; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); text-align: left; vertical-align: top; }
+.article-table th:first-child,
+.article-table td:first-child { width: 28%; }
 .article-table th { background: color-mix(in srgb, var(--detail-accent) 28%, var(--white)); font-size: .7rem; letter-spacing: .05em; text-transform: uppercase; }
 .article-table tr:last-child td { border-bottom: 0; }
 .article-table th:last-child,
@@ -743,7 +745,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (min-width: 821px) {
   .hero h1 {
-    font-size: clamp(11rem, 16vw, 24rem);
+    font-size: clamp(7.5rem, 10vw, 14rem);
   }
 }
 
@@ -896,6 +898,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .detail-meta { grid-template-columns: 1fr; gap: 17px; }
   .detail-aside { grid-template-columns: 84px 1fr; }
   .detail-aside__shape { width: 82px; height: 82px; font-size: 2rem; }
+  .article-table { box-shadow: 5px 5px 0 var(--detail-accent); }
+  .article-table table { font-size: .75rem; }
+  .article-table th,
+  .article-table td { padding: 9px 8px; }
+  .article-table th:first-child,
+  .article-table td:first-child { width: 34%; }
   .article-body blockquote { margin-right: 0; margin-left: 0; padding: 21px; }
   .about-story { padding: 28px 23px; box-shadow: 8px 8px 0 var(--teal); }
   .interest-grid { grid-template-columns: 1fr; }
