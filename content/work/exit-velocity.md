@@ -19,7 +19,7 @@ Exit Velocity began as a way to learn VR development and grew into a broader Seg
 
 The original development blog used a fixed teal navigation rail, an animated sawtooth edge and a black information ticker. The forms deliberately felt a little mechanical and a little handmade—closer to a fictional broadcast interface than a conventional blog.
 
-That visual language now has a second life in this portfolio: the rail and ticker remain, but the content has more space to breathe and the warmer Pastel Pocket palette softens the overall system.
+That visual language now has a second life in this portfolio: the structure remains, but the content has more space to breathe and the blue spatial interface gives it a calmer, more atmospheric setting.
 
 ## Why keep a project this broad?
 

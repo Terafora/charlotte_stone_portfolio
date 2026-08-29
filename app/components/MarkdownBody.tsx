@@ -58,8 +58,8 @@ export function MarkdownBody({ body }: { body: string }) {
             </div>
           );
         }
-        if (/^- /m.test(text)) {
-          return <ul key={index}>{text.split(/\r?\n/).map((line) => <li key={line}>{inline(line.replace(/^- /, ''))}</li>)}</ul>;
+        if (/^(?:-|\*) /m.test(text)) {
+          return <ul key={index}>{text.split(/\r?\n/).map((line) => <li key={line}>{inline(line.replace(/^(?:-|\*) /, ''))}</li>)}</ul>;
         }
         if (/^\d+\. /m.test(text)) {
           return <ol key={index}>{text.split(/\r?\n/).map((line) => <li key={line}>{inline(line.replace(/^\d+\. /, ''))}</li>)}</ol>;
