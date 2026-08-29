@@ -78,6 +78,26 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
       label: 'Contact',
       href: 'mailto:Charlotte.Stone.Dev@Proton.Me',
       summary: 'Have an interesting problem? Let’s compare notes.',
+      items: [
+        {
+          title: 'Email',
+          subtitle: 'Start a conversation',
+          href: 'mailto:Charlotte.Stone.Dev@Proton.Me',
+          summary: 'Send me a message about a product, project or interesting problem.',
+        },
+        {
+          title: 'GitHub',
+          subtitle: 'Code and experiments',
+          href: 'https://github.com/Terafora',
+          summary: 'Browse the tools, prototypes and technical experiments I share in public.',
+        },
+        {
+          title: 'LinkedIn',
+          subtitle: 'Work and experience',
+          href: 'https://www.linkedin.com/in/charlotte-stone-product/',
+          summary: 'See my product background, experience and current professional work.',
+        },
+      ],
     },
   ], [projects, writing]);
 
@@ -160,7 +180,13 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
               type="button"
               aria-current={index === categoryIndex ? 'page' : undefined}
               aria-label={`${entry.label}${index === categoryIndex ? ', selected' : ''}`}
-              onClick={() => setCategoryIndex(index)}
+              onClick={() => {
+                if (entry.id === 'about') {
+                  window.location.assign(withSiteBasePath(entry.href));
+                  return;
+                }
+                setCategoryIndex(index);
+              }}
               key={entry.id}
             >
               <span className="xmb-nav__glass" aria-hidden="true"><i /><i /><i /><i /></span>
@@ -197,8 +223,17 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
               <span className="xmb-selection__count">{category.items ? `${itemIndex + 1} / ${category.items.length}` : category.label}</span>
               <h2>{activeTitle}</h2>
               <p>{activeSubtitle}</p>
-              <SiteLink href={activeHref} className="xmb-open-link">
-                {category.id === 'contact' ? 'Send an email' : selectedItem ? 'View project' : `Open ${category.label}`}
+              <SiteLink
+                href={activeHref}
+                className="xmb-open-link"
+                target={activeHref.startsWith('http') ? '_blank' : undefined}
+                rel={activeHref.startsWith('http') ? 'noreferrer' : undefined}
+              >
+                {category.id === 'contact' && selectedItem
+                  ? `Open ${selectedItem.title}`
+                  : selectedItem
+                    ? 'View project'
+                    : `Open ${category.label}`}
                 <span aria-hidden="true">→</span>
               </SiteLink>
             </div>
