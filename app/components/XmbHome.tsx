@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { SiteLink, withSiteBasePath } from './SiteLink';
 import { WaveBackground } from './WaveBackground';
 
@@ -19,6 +20,9 @@ type Category = {
   summary: string;
   items?: XmbItem[];
 };
+
+// Keep the Work shortcut available for a future return without exposing it in the XMB for now.
+const SHOW_WORK_SHORTCUT = false;
 
 function isEditable(target: EventTarget | null) {
   return target instanceof HTMLElement
@@ -46,8 +50,8 @@ function SystemClock() {
 }
 
 export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: XmbItem[] }) {
-  const categories = useMemo<Category[]>(() => [
-    {
+  const categories = useMemo<Category[]>(() => {
+    const entries: Category[] = [{
       id: 'about',
       label: 'About',
       href: '/about',
@@ -98,10 +102,13 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
           summary: 'See my product background, experience and current professional work.',
         },
       ],
-    },
-  ], [projects, writing]);
+    }];
 
-  const [categoryIndex, setCategoryIndex] = useState(2);
+    return SHOW_WORK_SHORTCUT ? entries : entries.filter((entry) => entry.id !== 'work');
+  }, [projects, writing]);
+
+  const projectCategoryIndex = Math.max(0, categories.findIndex((entry) => entry.id === 'projects'));
+  const [categoryIndex, setCategoryIndex] = useState(projectCategoryIndex);
   const [itemIndexes, setItemIndexes] = useState<Record<string, number>>({ projects: 0, writing: 0 });
   const category = categories[categoryIndex];
   const itemIndex = itemIndexes[category.id] ?? 0;
@@ -139,14 +146,14 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
         if (category.items?.length && itemIndex !== 0) {
           setItemIndexes((current) => ({ ...current, [category.id]: 0 }));
         } else {
-          setCategoryIndex(2);
+          setCategoryIndex(projectCategoryIndex);
         }
       }
     };
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [activeHref, categories.length, category, itemIndex]);
+  }, [activeHref, categories.length, category, itemIndex, projectCategoryIndex]);
 
   return (
     <div className="xmb-home">
@@ -173,7 +180,11 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
           <p>Software engineer &amp; product maker</p>
         </div>
 
-        <nav className="xmb-nav" aria-label="Portfolio sections">
+        <nav
+          className="xmb-nav"
+          aria-label="Portfolio sections"
+          style={{ '--xmb-category-count': categories.length } as CSSProperties}
+        >
           {categories.map((entry, index) => (
             <button
               className={`xmb-nav__item xmb-nav__item--${entry.id}${index === categoryIndex ? ' is-selected' : ''}`}
