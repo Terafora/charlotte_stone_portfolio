@@ -277,7 +277,6 @@ That is what I shipped.
 ## Evidence and links
 
 - [ProNounce on itch.io](https://terafora.itch.io/pronounce)
-- [ProNounce repository](https://github.com/Terafora/ProNounce)
 - itch.io Creator Dashboard snapshot, 27 August 2026: 24 views, 5 downloads, 0 payments, 0 ratings and 0 collections
 - Public beta release: 15 August 2026, version 0.7.0-beta.1
 
