@@ -134,8 +134,13 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
 
       <header className="xmb-status">
         <SystemClock />
-        <div className="xmb-status__signal" aria-label="Portfolio status: online">
-          <span>Online</span><i aria-hidden="true" />
+        <div
+          className="xmb-status-ticker"
+          aria-label="Current status: Currently working on fun, small projects to share."
+        >
+          <div className="xmb-status-ticker__track">
+            <span>Currently working on fun, small projects to share.</span>
+          </div>
         </div>
       </header>
 
@@ -200,7 +205,7 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
       </section>
 
       <footer className="xmb-ambient">
-        <p><span>Currently building</span><strong>Local-first tools</strong></p>
+        <p><span>Currently building</span><strong>Fun, small projects to share</strong></p>
         <p><span>Currently learning</span><strong>Godot · C / C++</strong></p>
         <div className="xmb-controls" aria-hidden="true">← → Category &nbsp; ↑ ↓ Item &nbsp; Enter Open &nbsp; Esc Back</div>
       </footer>
