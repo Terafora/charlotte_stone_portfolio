@@ -138,8 +138,10 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
           className="xmb-status-ticker"
           aria-label="Current status: Currently working on fun, small projects to share."
         >
-          <div className="xmb-status-ticker__track">
-            <span>Currently working on fun, small projects to share.</span>
+          <div className="xmb-status-ticker__viewport">
+            <div className="xmb-status-ticker__track">
+              <span>Currently working on fun, small projects to share.</span>
+            </div>
           </div>
         </div>
       </header>
