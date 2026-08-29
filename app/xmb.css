@@ -80,6 +80,9 @@
 .xmb-status-ticker__track { width: max-content; min-width: 100%; height: 100%; padding-left: 100%; display: flex; align-items: center; will-change: transform; animation: xmb-status-pass 34s linear infinite; }
 .xmb-status-ticker__track span { padding-right: 32px; color: #dff7ff; font-size: .68rem; letter-spacing: .08em; white-space: nowrap; text-transform: uppercase; }
 
+.xmb-mobile-menu-toggle,
+.xmb-mobile-menu { display: none; }
+
 @keyframes xmb-status-pass {
   0%, 12% { transform: translateX(0); }
   84%, 100% { transform: translateX(-100%); }
@@ -141,6 +144,46 @@
 
 @media (max-width: 760px) {
   .xmb-home { min-height: 100svh; overflow-y: auto; }
+  .xmb-status { z-index: 30; align-items: flex-start; }
+  .xmb-status-ticker { display: none; }
+  .xmb-mobile-menu-toggle {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    background: #052554;
+    color: #fff;
+    border: 1px solid rgba(220, 248, 255, .72);
+    border-radius: 50%;
+    box-shadow: 0 10px 28px rgba(0, 8, 28, .35), inset 0 0 18px rgba(103, 220, 255, .08);
+    cursor: pointer;
+  }
+  .xmb-mobile-menu-toggle > span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .xmb-mobile-menu-toggle__icon { width: 22px; display: grid; gap: 5px; }
+  .xmb-mobile-menu-toggle__icon i { display: block; width: 100%; height: 1px; background: currentColor; transition: transform 180ms ease, opacity 180ms ease; }
+  .xmb-mobile-menu-toggle[aria-expanded='true'] .xmb-mobile-menu-toggle__icon i:first-child { transform: translateY(6px) rotate(45deg); }
+  .xmb-mobile-menu-toggle[aria-expanded='true'] .xmb-mobile-menu-toggle__icon i:nth-child(2) { opacity: 0; }
+  .xmb-mobile-menu-toggle[aria-expanded='true'] .xmb-mobile-menu-toggle__icon i:last-child { transform: translateY(-6px) rotate(-45deg); }
+  .xmb-mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    min-height: 100dvh;
+    padding: 108px 24px 36px;
+    place-items: center;
+    overflow-y: auto;
+    background: #02132f;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease;
+  }
+  .xmb-mobile-menu.is-open { display: grid; opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+  .xmb-mobile-menu ul { width: min(100%, 430px); margin: 0; padding: 0; display: grid; gap: 8px; list-style: none; text-align: center; }
+  .xmb-mobile-menu a { display: block; padding: 16px 12px; color: #dff7ff; border-bottom: 1px solid rgba(154, 221, 246, .18); font-size: clamp(1.45rem, 7vw, 2.3rem); font-weight: 300; letter-spacing: .14em; text-decoration: none; text-transform: uppercase; }
+  .xmb-mobile-menu a[aria-current='page'] { color: #fff; text-shadow: 0 0 18px rgba(88, 222, 255, .5); }
   .xmb-home__stage { min-height: 100svh; padding-top: 120px; align-content: start; }
   .xmb-identity h1 { font-size: clamp(1.7rem, 7vw, 2.7rem); letter-spacing: .17em; }
   .xmb-nav { width: min(calc(var(--xmb-category-count, 5) * 82px), 100%); grid-template-columns: repeat(var(--xmb-category-count, 5), minmax(46px, 1fr)); gap: 5px; }
@@ -341,13 +384,20 @@
 @media (max-width: 920px) {
   .xmb-interior .interior-nav { grid-template-columns: minmax(170px, 1fr) auto; }
   .xmb-interior .interior-nav nav {
-    position: fixed;
-    inset: 76px 0 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    bottom: auto;
+    left: 0;
     z-index: 60;
+    width: 100vw;
+    height: calc(100dvh - 76px);
+    min-height: calc(100svh - 76px);
     display: none;
     place-items: center;
+    overflow-y: auto;
     background: #02132f;
-    backdrop-filter: blur(18px);
+    backdrop-filter: none;
     box-shadow: inset 0 1px rgba(188, 237, 255, .18), 0 24px 60px rgba(0, 7, 24, .5);
   }
   .xmb-interior .interior-nav nav.is-open { display: grid; }
@@ -367,7 +417,7 @@
   .xmb-interior .site-main { padding-top: 70px; }
   .xmb-interior .interior-nav { height: 70px; padding: 0 17px; }
   .xmb-interior .site-nav__strapline { display: none; }
-  .xmb-interior .interior-nav nav { inset: 70px 0 0; }
+  .xmb-interior .interior-nav nav { height: calc(100dvh - 70px); min-height: calc(100svh - 70px); }
   .xmb-interior .index-page,
   .xmb-interior .about-page,
   .xmb-interior .detail-page,

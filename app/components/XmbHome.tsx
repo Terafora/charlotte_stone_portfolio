@@ -50,6 +50,7 @@ function SystemClock() {
 }
 
 export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: XmbItem[] }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const categories = useMemo<Category[]>(() => {
     const entries: Category[] = [{
       id: 'about',
@@ -121,6 +122,12 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
     const onKeyDown = (event: KeyboardEvent) => {
       if (isEditable(event.target) || event.altKey || event.ctrlKey || event.metaKey) return;
 
+      if (event.key === 'Escape' && mobileMenuOpen) {
+        event.preventDefault();
+        setMobileMenuOpen(false);
+        return;
+      }
+
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault();
         const direction = event.key === 'ArrowRight' ? 1 : -1;
@@ -153,7 +160,7 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [activeHref, categories.length, category, itemIndex, projectCategoryIndex]);
+  }, [activeHref, categories.length, category, itemIndex, mobileMenuOpen, projectCategoryIndex]);
 
   return (
     <div className="xmb-home">
@@ -171,7 +178,32 @@ export function XmbHome({ projects, writing }: { projects: XmbItem[]; writing: X
             </div>
           </div>
         </div>
+
+        <button
+          className="xmb-mobile-menu-toggle"
+          type="button"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="xmb-mobile-navigation"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <span>{mobileMenuOpen ? 'Close' : 'Menu'}</span>
+          <span className="xmb-mobile-menu-toggle__icon" aria-hidden="true"><i /><i /><i /></span>
+        </button>
       </header>
+
+      <nav
+        id="xmb-mobile-navigation"
+        className={`xmb-mobile-menu${mobileMenuOpen ? ' is-open' : ''}`}
+        aria-label="Primary navigation"
+      >
+        <ul>
+          <li><SiteLink href="/" aria-current="page" onClick={() => setMobileMenuOpen(false)}>Home</SiteLink></li>
+          <li><SiteLink href="/work" onClick={() => setMobileMenuOpen(false)}>Projects</SiteLink></li>
+          <li><SiteLink href="/writing" onClick={() => setMobileMenuOpen(false)}>Writing</SiteLink></li>
+          <li><SiteLink href="/about" onClick={() => setMobileMenuOpen(false)}>About</SiteLink></li>
+          <li><SiteLink href="mailto:Charlotte.Stone.Dev@Proton.Me" onClick={() => setMobileMenuOpen(false)}>Contact</SiteLink></li>
+        </ul>
+      </nav>
 
       <section className="xmb-home__stage" aria-labelledby="xmb-title">
         <div className="xmb-identity">
