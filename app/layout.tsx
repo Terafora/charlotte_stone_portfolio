@@ -8,9 +8,12 @@ const bodyFont = Space_Grotesk({ variable: '--font-body', subsets: ['latin'] });
 const headingFont = Limelight({ variable: '--font-heading', weight: '400', subsets: ['latin'] });
 const vercelProductionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  ?? (vercelProductionHost ? `https://${vercelProductionHost}` : 'http://localhost:3000');
+  ?? (vercelProductionHost
+    ? `https://${vercelProductionHost}`
+    : 'https://charlotte-stone-portfolio.charlie-stone649.chatgpt.site');
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-const ogImage = `${basePath}/og.png`;
+const canonicalUrl = new URL(`${basePath}/`, siteUrl).toString();
+const ogImage = new URL(`${basePath}/og.png`, siteUrl).toString();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -19,13 +22,19 @@ export const metadata: Metadata = {
     template: '%s — Charlotte Stone',
   },
   description: 'Human-centred products, privacy-respecting software and field notes by Charlotte Stone.',
-  alternates: { canonical: `${basePath}/` },
+  alternates: { canonical: canonicalUrl },
   openGraph: {
     type: 'website',
     title: 'Charlotte Stone — Software Engineer & Product Maker',
     description: 'Human-centred products, privacy-respecting software and field notes by Charlotte Stone.',
-    url: `${basePath}/`,
-    images: [{ url: ogImage, width: 1729, height: 910, alt: 'Charlotte Stone — Product, UX, Software, Learning, Play' }],
+    url: canonicalUrl,
+    siteName: 'Charlotte Stone',
+    images: [{
+      url: ogImage,
+      width: 1200,
+      height: 630,
+      alt: 'Charlotte Stone — Software Engineer & Product Maker',
+    }],
   },
   twitter: {
     card: 'summary_large_image',
